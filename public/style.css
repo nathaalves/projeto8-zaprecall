@@ -21,8 +21,7 @@
 
     margin-bottom: 15px;
 }
-
-.home-screen h1 {
+h1 {
     font-family: 'Righteous', cursive;
     font-weight: 400;
     font-size: 36px;
@@ -55,5 +54,45 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    position: fixed;
+    top: 0;
+    z-index: 1;
+
+    width: 100vw;
+    padding: 40px 0;
     background-color: #FB6B6B;
+}
+
+.flashcard-page-header img {
+    width: 52px;
+    height: 60px;
+    margin-right: 20px;
+}
+
+.flashcard-page-main {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 140px;
+    padding-bottom: 70px;
+    box-sizing: border-box;
+    background-color: #FB6B6B;
+}
+
+.flashcard-page-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 70px;
+    background-color: #FFFFFF;
+
+    position: fixed;
+    bottom: 0;
+
+    font-family: 'Recursive';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #333333;
 }
