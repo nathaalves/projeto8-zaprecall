@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Recursive:CASL@1&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght,CASL@400,1;700,1&family=Righteous&display=swap');
 
 .home-screen {
     display: flex; /* flex */
@@ -22,7 +22,7 @@
     margin-bottom: 15px;
 }
 h1 {
-    font-family: 'Righteous', cursive;
+    font-family: 'Righteous';
     font-weight: 400;
     font-size: 36px;
     line-height: 45px;
@@ -82,10 +82,12 @@ h1 {
 
 .flashcard-page-footer {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100vw;
     height: 70px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     background-color: #FFFFFF;
 
     position: fixed;
@@ -122,7 +124,7 @@ h1 {
 
 }
 
-.flash-card h2 {
+.flash-card {
     font-family: 'Recursive';
     font-weight: 700;
     font-size: 16px;
@@ -130,8 +132,8 @@ h1 {
     color: #333333;
 }
 
-.flash-card ion-icon {
-    width: 20px;
+ion-icon {
+    width: 23px;
     height: 23px;
 }
 
@@ -213,4 +215,17 @@ h1 {
 }
 .btn-container div:nth-child(3) {
     background-color: #2FBE34;
+}
+
+.dont-remember {
+    text-decoration-line: line-through;
+    color: #FF3030;
+}
+.almost-dont-remember {
+    text-decoration-line: line-through;
+    color: #FF922E;
+}
+.zap {
+    text-decoration-line: line-through;
+    color: #2FBE34;
 }

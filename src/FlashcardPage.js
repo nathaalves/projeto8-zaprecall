@@ -13,27 +13,53 @@ export default function FlashcardPage () {
         {title: "Pergunta 8", question: "Usamos estado (state) para __", answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"},
     ]
 
-    const [conpleted, setComplited] = React.useState(0)
+    const [flashCards, setFlashCards] = React.useState(flashCardsObj.map( (flashCard, index) => <FlashCard index={index} title={flashCard.title} />))
 
-/*     function FlashCard ({ key, title }) {
+    const [answerHistoric, setAnswerHistoric] = React.useState([])
+    const [answeredCount, setAnsweredCount] = React.useState(0)
+
+    function AnsweredFlashCard ({index, icon, style}) {
         return (
-            <div className="flash-card" key={index} onClick={ () => openQuestion(index)}>
+            <div className={"flash-card " + style} key={index} onClick={ () => openQuestion(index)}>
                 <div>
-                    <h2>{ question.title }</h2>
-                    <ion-icon name="play-outline"></ion-icon>
+                    <h2>{ flashCardsObj[index].title }</h2>
+                    {icon}
                 </div>
             </div>
         )
-    } */
+    }
+
+    function reply (value, index) {
+
+        if (value === "dont-remember") {
+            setAnswerHistoric(prevHistoric => [...prevHistoric, <span className={value}><ion-icon name="close-circle"></ion-icon></span>])
+            flashCards.splice(index, 1, <AnsweredFlashCard index={index} icon={<span><ion-icon name="close-circle"></ion-icon></span>} style={value}/>)
+            setFlashCards([...flashCards])
+        }
+
+        if (value === "almost-dont-remember") {
+            setAnswerHistoric(prevHistoric => [...prevHistoric, <span className={value}><ion-icon name="help-circle"></ion-icon></span>])
+            flashCards.splice(index, 1, <AnsweredFlashCard index={index} icon={<span><ion-icon name="help-circle"></ion-icon></span>} style={value}/>)
+            setFlashCards([...flashCards])
+        }
+
+        if (value === "zap") {
+            setAnswerHistoric(prevHistoric => [...prevHistoric, <span className={value}><ion-icon name="checkmark-circle"></ion-icon></span>])
+            flashCards.splice(index, 1, <AnsweredFlashCard index={index} icon={<span><ion-icon name="checkmark-circle"></ion-icon></span>} style={value}/>)
+            setFlashCards([...flashCards])
+        }
+        
+        setAnsweredCount(prevCount => prevCount + 1)
+    }
 
     function Answer ({ index }) {
         return (
-            <div className="answer">
+            <div className="answer" key={index}>
                 <h2>{flashCardsObj[index].answer}</h2>
                 <div className="btn-container">
-                    <div className="btn-not-remember">Não lembrei</div>
-                    <div className="btn-almost-not-remember">Quase não lembrei</div>
-                    <div className="btn-zap">Zap</div>
+                    <div onClick={ () => reply("dont-remember", index)}>Não lembrei</div>
+                    <div onClick={ () => reply("almost-dont-remember", index)}>Quase não lembrei</div>
+                    <div onClick={ () => reply("zap", index)}>Zap</div>
                 </div>
             </div>
         )
@@ -41,31 +67,34 @@ export default function FlashcardPage () {
 
     function answerQuestion (index) {
         flashCards.splice(index, 1, <Answer index={index}/>)
-        setflashCards([...flashCards])
+        setFlashCards([...flashCards])
     }
 
     function Question ({index}) {
         return (
-            <div className="question" onClick={() => answerQuestion(index)}>
+            <div className="question" onClick={() => answerQuestion(index)} key={index}>
                 <h2>{flashCardsObj[index].question}</h2>
-                <img src="./images/setinha.png"></img>
+                <img src="./images/setinha.png" alt="setinha"></img>
             </div>
         )
     }
 
-    const [flashCards, setflashCards] = React.useState(flashCardsObj.map( (question, index) => (
-    <div className="flash-card" key={index} onClick={ () => openQuestion(index)}>
-        <div>
-            <h2>{ question.title }</h2>
-            <ion-icon name="play-outline"></ion-icon>
-        </div>
-    </div>)))
-
     function openQuestion (index) {
         flashCards.splice(index, 1, <Question index={index}/>)
-        setflashCards([...flashCards])
+        setFlashCards([...flashCards])
     }
-    
+
+    function FlashCard ({ index, title }) {
+        return (
+            <div className="flash-card" key={index} onClick={ () => openQuestion(index)}>
+                <div>
+                    <h2>{ title }</h2>
+                    <ion-icon name="play-outline"></ion-icon>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <>
             <header className="flashcard-page-header">
@@ -76,7 +105,8 @@ export default function FlashcardPage () {
                 {flashCards}
             </main>
             <footer className="flashcard-page-footer">
-                {conpleted}/{flashCards.length} CONCLUÍDOS
+                {answeredCount}/{flashCards.length} CONCLUÍDOS
+                <div>{answerHistoric}</div>
             </footer>
         </>
     )
