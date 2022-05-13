@@ -16,7 +16,7 @@ export default function FlashcardPage () {
     const [flashCards, setFlashCards] = React.useState(flashCardsObj.map( (flashCard, index) => <FlashCard index={index}><ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon></FlashCard>))
 
     const [answerHistoric, setAnswerHistoric] = React.useState([])
-    const [answeredCount, setAnsweredCount] = React.useState(8)
+    const [answeredCount, setAnsweredCount] = React.useState(0)
     
     const [congrats, setCongrats] = React.useState(true)
 
