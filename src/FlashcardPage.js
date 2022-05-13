@@ -13,83 +13,94 @@ export default function FlashcardPage () {
         {title: "Pergunta 8", question: "Usamos estado (state) para __", answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"},
     ]
 
-    const [flashCards, setFlashCards] = React.useState(flashCardsObj.map( (flashCard, index) => <FlashCard index={index} title={flashCard.title} />))
+    const [flashCards, setFlashCards] = React.useState(flashCardsObj.map( (flashCard, index) => <FlashCard index={index}><ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon></FlashCard>))
 
     const [answerHistoric, setAnswerHistoric] = React.useState([])
-    const [answeredCount, setAnsweredCount] = React.useState(0)
+    const [answeredCount, setAnsweredCount] = React.useState(8)
+    
+    const [congrats, setCongrats] = React.useState(true)
 
-    function AnsweredFlashCard ({index, icon, style}) {
+    function Message () {
+
+        let source = "./images/party.png"
+        let message1 = "Parabéns"
+        let message2 = "Você não esqueceu de nenhum flashcard!"
+
+        if (congrats === false) {
+            source = "./images/sad.png"
+            message1 = "Putz..."
+            message2 = "Ainda faltam alguns... Mas não desanime"
+        }
+
         return (
-            <div className={"flash-card " + style} key={index} onClick={ () => openQuestion(index)}>
+            <div className="message">
                 <div>
-                    <h2>{ flashCardsObj[index].title }</h2>
-                    {icon}
+                    <img src={source} alt="congrats"></img>
+                    <h3>{message1}</h3>
                 </div>
+                <p>{message2}</p>
             </div>
+        )
+    }
+
+    function Icon ({name}) {
+        return (
+            <span className={name}><ion-icon name={name}></ion-icon></span>
         )
     }
 
     function reply (value, index) {
 
-        if (value === "dont-remember") {
-            setAnswerHistoric(prevHistoric => [...prevHistoric, <span className={value}><ion-icon name="close-circle"></ion-icon></span>])
-            flashCards.splice(index, 1, <AnsweredFlashCard index={index} icon={<span><ion-icon name="close-circle"></ion-icon></span>} style={value}/>)
-            setFlashCards([...flashCards])
+        if (value === "close-circle") {
+            setCongrats(false)
         }
 
-        if (value === "almost-dont-remember") {
-            setAnswerHistoric(prevHistoric => [...prevHistoric, <span className={value}><ion-icon name="help-circle"></ion-icon></span>])
-            flashCards.splice(index, 1, <AnsweredFlashCard index={index} icon={<span><ion-icon name="help-circle"></ion-icon></span>} style={value}/>)
-            setFlashCards([...flashCards])
-        }
-
-        if (value === "zap") {
-            setAnswerHistoric(prevHistoric => [...prevHistoric, <span className={value}><ion-icon name="checkmark-circle"></ion-icon></span>])
-            flashCards.splice(index, 1, <AnsweredFlashCard index={index} icon={<span><ion-icon name="checkmark-circle"></ion-icon></span>} style={value}/>)
-            setFlashCards([...flashCards])
-        }
+        setAnswerHistoric(prevHistoric => [...prevHistoric, <Icon name={value}/>])
+        flashCards.splice(index, 1, <FlashCard index={index} style={value}><Icon name={value}/></FlashCard>)
         
+        setFlashCards([...flashCards])
         setAnsweredCount(prevCount => prevCount + 1)
     }
 
-    function Answer ({ index }) {
+    function Card ({ index, text, children }) {
         return (
-            <div className="answer" key={index}>
-                <h2>{flashCardsObj[index].answer}</h2>
-                <div className="btn-container">
-                    <div onClick={ () => reply("dont-remember", index)}>Não lembrei</div>
-                    <div onClick={ () => reply("almost-dont-remember", index)}>Quase não lembrei</div>
-                    <div onClick={ () => reply("zap", index)}>Zap</div>
+            <div className="question" key={index}>
+                <div>
+                    <h2>{ text }</h2>
+                </div>
+                <div>
+                    {children}
                 </div>
             </div>
         )
     }
 
     function answerQuestion (index) {
-        flashCards.splice(index, 1, <Answer index={index}/>)
+        flashCards.splice(index, 1, 
+            <Card index={index} text={flashCardsObj[index].answer}>
+                <div className="btn-container">
+                        <div onClick={ () => reply("close-circle", index)}>Não lembrei</div>
+                        <div onClick={ () => reply("help-circle", index)}>Quase não lembrei</div>
+                        <div onClick={ () => reply("checkmark-circle", index)}>Zap</div>
+                    </div>
+            </Card>)
         setFlashCards([...flashCards])
-    }
-
-    function Question ({index}) {
-        return (
-            <div className="question" onClick={() => answerQuestion(index)} key={index}>
-                <h2>{flashCardsObj[index].question}</h2>
-                <img src="./images/setinha.png" alt="setinha"></img>
-            </div>
-        )
     }
 
     function openQuestion (index) {
-        flashCards.splice(index, 1, <Question index={index}/>)
+        flashCards.splice(index, 1, 
+            <Card index={index} text={flashCardsObj[index].question}>
+                <img src="./images/setinha.png" alt="setinha" onClick={() => answerQuestion(index)}></img>
+            </Card>)
         setFlashCards([...flashCards])
     }
 
-    function FlashCard ({ index, title }) {
+    function FlashCard ({ index, style, children}) {
         return (
-            <div className="flash-card" key={index} onClick={ () => openQuestion(index)}>
+            <div className={"flash-card " + style} key={index} >
                 <div>
-                    <h2>{ title }</h2>
-                    <ion-icon name="play-outline"></ion-icon>
+                    <h2 className={style}>{ `Pergunta ${index + 1}` }</h2>
+                    {children}
                 </div>
             </div>
         )
@@ -105,6 +116,7 @@ export default function FlashcardPage () {
                 {flashCards}
             </main>
             <footer className="flashcard-page-footer">
+                {(answeredCount === flashCards.length) ? <Message /> : <></>}
                 {answeredCount}/{flashCards.length} CONCLUÍDOS
                 <div>{answerHistoric}</div>
             </footer>

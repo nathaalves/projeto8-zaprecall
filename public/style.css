@@ -86,7 +86,7 @@ h1 {
     align-items: center;
     justify-content: center;
     width: 100vw;
-    height: 70px;
+    min-height: 70px;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     background-color: #FFFFFF;
 
@@ -140,11 +140,10 @@ ion-icon {
 .question {
     width: 300px;
     min-height: 130px;
-    padding: 15px 15px 25px 15px;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
-    box-sizing: border-box;
-    background: #FFFFD5;
+    /* box-sizing: border-box; */
+    background-color: #FFFFD5;
     margin: 15px auto;
     position: relative;
 
@@ -153,6 +152,13 @@ ion-icon {
     font-size: 18px;
     line-height: 22px;
     color: #333333;
+}
+
+.question > div:first-child {
+    width: 270px;
+    min-height: 62px;
+    margin: 0 15px;
+    padding: 15px 0 10px 0;
 }
 
 .question img {
@@ -161,33 +167,13 @@ ion-icon {
     bottom: 5px;
 }
 
-.answer {
-    width: 300px;
-    padding: 15px 15px 5px 15px;
-    background: #FFFFD5;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
-    box-sizing: border-box;
-    border-radius: 5px;
-    margin: 15px auto;
-    position: relative;
-
-    font-family: 'Recursive';
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #333333;
-}
-
-.answer h2 {
-    min-height: 62px;
-}
-
 .btn-container {
     display: flex;
     justify-content: space-between;
 
     width: 270px;
-    padding-top: 10px;
+    margin: 0 15px;
+    padding-bottom: 5px;
 }
 
 .btn-container div {
@@ -217,15 +203,37 @@ ion-icon {
     background-color: #2FBE34;
 }
 
-.dont-remember {
+.close-circle {
     text-decoration-line: line-through;
     color: #FF3030;
 }
-.almost-dont-remember {
+.help-circle {
     text-decoration-line: line-through;
     color: #FF922E;
 }
-.zap {
+.checkmark-circle {
     text-decoration-line: line-through;
     color: #2FBE34;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    width: 220px;
+    padding: 15px 0;
+}
+
+.message > div {
+    display: flex;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.message img {
+    margin-right: 15px;
 }
