@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Recursive:wght,CASL@400,1;700,1&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght,CASL@400,1;700,1&family=Righteous&family=Roboto&display=swap');
 
 .home-screen {
     display: flex; /* flex */
@@ -40,7 +40,6 @@ h1 {
     border: 1px solid #D70900;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
-    margin-top: 30px;
     background-color: #FFFFFF;
 
     font-family: 'Recursive', sans-serif;
@@ -49,6 +48,11 @@ h1 {
     line-height: 22px;
     text-decoration: none;
     color: #D70900;
+}
+
+.btn-unactive {
+    background-color: #E8E8E8;
+    color: #C0C0C0;
 }
 
 .flashcard-page-header {
@@ -250,4 +254,35 @@ ion-icon {
     background-color: #FB6B6B;
 
     margin: 15px 0;
+}
+
+.meta-input {
+    width: 246px;
+    height: 43px;
+    background: #FFFFFF;
+    border: 1px solid #D70900;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.meta-input ::placeholder {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #ADADAD;
+}
+
+.invalid-value {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+    margin-bottom: 15px;
 }

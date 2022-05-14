@@ -4,9 +4,10 @@ import party from "../assets/images/party.png"
 import sad from "../assets/images/sad.png"
 import setinha from "../assets/images/setinha.png"
 
-export default function FlashcardPage () {
+let contador = 0
+export default function FlashcardPage ({ goal }) {
 
-    let flashCardsObj = [
+    let deck = [
         {question: "O que é JSX?", answer: "Uma extensão de linguagem do JavaScript"},
         {question: "O React é __", answer: "uma biblioteca JavaScript para construção de interfaces"},
         {question: "Componentes devem iniciar com __", answer: "letra maiúscula"},
@@ -21,7 +22,7 @@ export default function FlashcardPage () {
         return Math.random() - 0.5; 
     }
 
-    flashCardsObj = flashCardsObj.sort(comparador);
+    deck = deck.sort(comparador);
 
     function FlashCard ({ index, style, children}) {
         return (
@@ -34,7 +35,7 @@ export default function FlashcardPage () {
         )
     }
 
-    const [flashCards, setFlashCards] = React.useState(flashCardsObj.map( (flashCard, index) => 
+    const [flashCards, setFlashCards] = React.useState(deck.map( (flashCard, index) => 
         <FlashCard index={index}>
             <ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon>
         </FlashCard>))
@@ -52,8 +53,11 @@ export default function FlashcardPage () {
 
     function reply (value, index) {
 
-        if (value === "close-circle") {
-            setCongrats(false)
+        if (value === "checkmark-circle") {
+            contador++
+            if (contador < Number(goal)) {
+                setCongrats(false)
+            }
         }
 
         setAnswerHistoric(prevHistoric => [...prevHistoric, <Icon name={value}/>])
@@ -78,7 +82,7 @@ export default function FlashcardPage () {
 
     function answerQuestion (index) {
         flashCards.splice(index, 1, 
-            <Card index={index} text={flashCardsObj[index].answer}>
+            <Card index={index} text={deck[index].answer}>
                 <div className="btn-container">
                     <div onClick={ () => reply("close-circle", index)}>Não lembrei</div>
                     <div onClick={ () => reply("help-circle", index)}>Quase não lembrei</div>
@@ -90,7 +94,7 @@ export default function FlashcardPage () {
 
     function openQuestion (index) {
         flashCards.splice(index, 1, 
-            <Card index={index} text={flashCardsObj[index].question}>
+            <Card index={index} text={deck[index].question}>
                 <img src={setinha} alt="setinha" onClick={() => answerQuestion(index)}></img>
             </Card>)
         setFlashCards([...flashCards])
@@ -120,9 +124,9 @@ export default function FlashcardPage () {
     }
 
     function reset () {
-        flashCardsObj = flashCardsObj.sort(comparador);
+        deck = deck.sort(comparador);
 
-        setFlashCards(flashCardsObj.map( (flashCard, index) => 
+        setFlashCards(deck.map( (flashCard, index) => 
             <FlashCard index={index}>
                 <ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon>
             </FlashCard>))
