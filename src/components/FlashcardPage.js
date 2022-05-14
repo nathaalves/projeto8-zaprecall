@@ -17,7 +17,13 @@ export default function FlashcardPage () {
         {question: "Usamos estado (state) para __", answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"},
     ]
 
-    const [flashCards, setFlashCards] = React.useState(flashCardsObj.map( (flashCard, index) => 
+    function comparador() { 
+        return Math.random() - 0.5; 
+    }
+
+    const randonFlashCardsObj = flashCardsObj.sort(comparador);
+
+    const [flashCards, setFlashCards] = React.useState(randonFlashCardsObj.map( (flashCard, index) => 
         <FlashCard index={index}>
             <ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon>
         </FlashCard>))
@@ -84,7 +90,7 @@ export default function FlashcardPage () {
 
     function answerQuestion (index) {
         flashCards.splice(index, 1, 
-            <Card index={index} text={flashCardsObj[index].answer}>
+            <Card index={index} text={randonFlashCardsObj[index].answer}>
                 <div className="btn-container">
                         <div onClick={ () => reply("close-circle", index)}>Não lembrei</div>
                         <div onClick={ () => reply("help-circle", index)}>Quase não lembrei</div>
@@ -96,7 +102,7 @@ export default function FlashcardPage () {
 
     function openQuestion (index) {
         flashCards.splice(index, 1, 
-            <Card index={index} text={flashCardsObj[index].question}>
+            <Card index={index} text={randonFlashCardsObj[index].question}>
                 <img src={setinha} alt="setinha" onClick={() => answerQuestion(index)}></img>
             </Card>)
         setFlashCards([...flashCards])
