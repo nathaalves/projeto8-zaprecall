@@ -9,7 +9,7 @@ export default function HomeScreen () {
             <img className="logo" src={logo} alt="logo"></img>
             <h1>ZapRecall</h1>
 
-            <Link to="/flashcard">
+            <Link to="/flashcards">
                 <div className="btn-start-recall">Iniciar Recall!</div>
             </Link>
         </div>
