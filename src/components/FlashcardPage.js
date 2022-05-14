@@ -6,7 +6,7 @@ import setinha from "../assets/images/setinha.png"
 
 export default function FlashcardPage () {
 
-    const flashCardsObj = [
+    let flashCardsObj = [
         {question: "O que é JSX?", answer: "Uma extensão de linguagem do JavaScript"},
         {question: "O React é __", answer: "uma biblioteca JavaScript para construção de interfaces"},
         {question: "Componentes devem iniciar com __", answer: "letra maiúscula"},
@@ -21,9 +21,20 @@ export default function FlashcardPage () {
         return Math.random() - 0.5; 
     }
 
-    const randonFlashCardsObj = flashCardsObj.sort(comparador);
+    flashCardsObj = flashCardsObj.sort(comparador);
 
-    const [flashCards, setFlashCards] = React.useState(randonFlashCardsObj.map( (flashCard, index) => 
+    function FlashCard ({ index, style, children}) {
+        return (
+            <div className={"flash-card " + style} key={index} >
+                <div>
+                    <h2 className={style}>{ `Pergunta ${index + 1}` }</h2>
+                    {children}
+                </div>
+            </div>
+        )
+    }
+
+    const [flashCards, setFlashCards] = React.useState(flashCardsObj.map( (flashCard, index) => 
         <FlashCard index={index}>
             <ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon>
         </FlashCard>))
@@ -32,29 +43,6 @@ export default function FlashcardPage () {
     const [answeredCount, setAnsweredCount] = React.useState(0)
     
     const [congrats, setCongrats] = React.useState(true)
-
-    function Message () {
-
-        let source = {party}
-        let message1 = "Parabéns"
-        let message2 = "Você não esqueceu de nenhum flashcard!"
-
-        if (congrats === false) {
-            source = {sad}
-            message1 = "Putz..."
-            message2 = "Ainda faltam alguns... Mas não desanime"
-        }
-
-        return (
-            <div className="message">
-                <div>
-                    <img src={source} alt="congrats"></img>
-                    <h3>{message1}</h3>
-                </div>
-                <p>{message2}</p>
-            </div>
-        )
-    }
 
     function Icon ({name}) {
         return (
@@ -90,33 +78,57 @@ export default function FlashcardPage () {
 
     function answerQuestion (index) {
         flashCards.splice(index, 1, 
-            <Card index={index} text={randonFlashCardsObj[index].answer}>
+            <Card index={index} text={flashCardsObj[index].answer}>
                 <div className="btn-container">
-                        <div onClick={ () => reply("close-circle", index)}>Não lembrei</div>
-                        <div onClick={ () => reply("help-circle", index)}>Quase não lembrei</div>
-                        <div onClick={ () => reply("checkmark-circle", index)}>Zap</div>
-                    </div>
+                    <div onClick={ () => reply("close-circle", index)}>Não lembrei</div>
+                    <div onClick={ () => reply("help-circle", index)}>Quase não lembrei</div>
+                    <div onClick={ () => reply("checkmark-circle", index)}>Zap</div>
+                </div>
             </Card>)
         setFlashCards([...flashCards])
     }
 
     function openQuestion (index) {
         flashCards.splice(index, 1, 
-            <Card index={index} text={randonFlashCardsObj[index].question}>
+            <Card index={index} text={flashCardsObj[index].question}>
                 <img src={setinha} alt="setinha" onClick={() => answerQuestion(index)}></img>
             </Card>)
         setFlashCards([...flashCards])
     }
 
-    function FlashCard ({ index, style, children}) {
+    function Message () {
+
+        let source = party
+        let message1 = "Parabéns"
+        let message2 = "Você não esqueceu de nenhum flashcard!"
+
+        if (congrats === false) {
+            source = sad
+            message1 = "Putz..."
+            message2 = "Ainda faltam alguns... Mas não desanime"
+        }
+
         return (
-            <div className={"flash-card " + style} key={index} >
+            <div className="message">
                 <div>
-                    <h2 className={style}>{ `Pergunta ${index + 1}` }</h2>
-                    {children}
+                    <img src={source} alt="congrats"></img>
+                    <h3>{message1}</h3>
                 </div>
+                <p>{message2}</p>
             </div>
         )
+    }
+
+    function reset () {
+        flashCardsObj = flashCardsObj.sort(comparador);
+
+        setFlashCards(flashCardsObj.map( (flashCard, index) => 
+            <FlashCard index={index}>
+                <ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon>
+            </FlashCard>))
+
+        setAnsweredCount(0)
+        setAnswerHistoric([])
     }
 
     return (
@@ -132,6 +144,7 @@ export default function FlashcardPage () {
                 {(answeredCount === flashCards.length) ? <Message /> : <></>}
                 {answeredCount}/{flashCards.length} CONCLUÍDOS
                 <div>{answerHistoric}</div>
+                {(answeredCount === flashCards.length) ? <div className="btn-reset" onClick={reset}>Reiniciar Recall</div> : <></>}
             </footer>
         </>
     )

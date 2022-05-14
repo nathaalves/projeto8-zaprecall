@@ -238,3 +238,16 @@ ion-icon {
 .message img {
     margin-right: 15px;
 }
+
+.btn-reset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 168px;
+    height: 32px;
+    border-radius: 5px;
+    background-color: #FB6B6B;
+
+    margin: 15px 0;
+}
