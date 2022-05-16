@@ -114,7 +114,7 @@ export default function FlashcardPage ({ goal, deck }) {
         )
     }
 
-    function reset () {
+    /* function reset () {
         deck = deck.sort(comparador);
         
         setFlashCards(deck.map( (flashCard, index) => 
@@ -124,7 +124,7 @@ export default function FlashcardPage ({ goal, deck }) {
 
         setAnsweredCount(0)
         setAnswerHistoric([])
-    }
+    } */
 
     return (
         <>
@@ -139,7 +139,7 @@ export default function FlashcardPage ({ goal, deck }) {
                 {(answeredCount === flashCards.length) ? <Message /> : <></>}
                 {answeredCount}/{flashCards.length} CONCLUÍDOS
                 <div>{answerHistoric}</div>
-                {(answeredCount === flashCards.length) ? <div className="btn-reset" onClick={reset}>Reiniciar Recall</div> : <></>}
+                {/* {(answeredCount === flashCards.length) ? <div className="btn-reset" onClick={reset}>Reiniciar Recall</div> : <></>} */}
             </footer>
         </>
     )
