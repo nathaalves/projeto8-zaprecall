@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Recursive:wght,CASL@400,1;700,1&family=Righteous&family=Roboto&display=swap');
 
+* {
+    text-decoration: none;
+}
+
 .home-screen {
     display: flex; /* flex */
     flex-direction: column;
@@ -46,12 +50,10 @@ h1 {
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
-    text-decoration: none;
     color: #D70900;
 }
 
 .btn-unactive {
-    text-decoration: none;
     background-color: #E8E8E8;
     color: #C0C0C0;
 }
