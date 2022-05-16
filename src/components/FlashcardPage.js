@@ -5,18 +5,7 @@ import sad from "../assets/images/sad.png"
 import setinha from "../assets/images/setinha.png"
 
 let contador = 0
-export default function FlashcardPage ({ goal }) {
-
-    let deck = [
-        {question: "O que é JSX?", answer: "Uma extensão de linguagem do JavaScript"},
-        {question: "O React é __", answer: "uma biblioteca JavaScript para construção de interfaces"},
-        {question: "Componentes devem iniciar com __", answer: "letra maiúscula"},
-        {question: "Podemos colocar __ dentro do JSX", answer: "expressões"},
-        {question: "O ReactDOM nos ajuda __", answer: "interagindo com a DOM para colocar componentes React na mesma"},
-        {question: "OUsamos o npm para __", answer: "6. gerenciar os pacotes necessários e suas dependências"},
-        {question: "OUsamos props para __", answer: "passar diferentes informações para componentes"},
-        {question: "Usamos estado (state) para __", answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"},
-    ]
+export default function FlashcardPage ({ goal, deck }) {
 
     function comparador() { 
         return Math.random() - 0.5; 
@@ -55,9 +44,6 @@ export default function FlashcardPage ({ goal }) {
 
         if (value === "checkmark-circle") {
             contador++
-            console.log(contador)
-            console.log(goal)
-            console.log(contador < Number(goal))
             if (contador < Number(goal)) {
                 setCongrats(false)
             } else {
@@ -130,11 +116,11 @@ export default function FlashcardPage ({ goal }) {
 
     function reset () {
         deck = deck.sort(comparador);
-
+        
         setFlashCards(deck.map( (flashCard, index) => 
-            <FlashCard index={index}>
-                <ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon>
-            </FlashCard>))
+        <FlashCard index={index}>
+            <ion-icon onClick={ () => openQuestion(index)} name="play-outline"></ion-icon>
+        </FlashCard>))
 
         setAnsweredCount(0)
         setAnswerHistoric([])
