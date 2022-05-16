@@ -51,6 +51,7 @@ h1 {
 }
 
 .btn-unactive {
+    text-decoration: none;
     background-color: #E8E8E8;
     color: #C0C0C0;
 }

@@ -4,30 +4,6 @@ import logo from "../assets/images/logo.png"
 
 export default function HomeScreen ( { goal, setGoal } ) {
 
-    const decks = [
-        {deck: "React",
-        flashCards: [
-        {question: "O que é JSX?", answer: "Uma extensão de linguagem do JavaScript"},
-        {question: "O React é __", answer: "uma biblioteca JavaScript para construção de interfaces"},
-        {question: "Componentes devem iniciar com __", answer: "letra maiúscula"},
-        {question: "Podemos colocar __ dentro do JSX", answer: "expressões"},
-        {question: "O ReactDOM nos ajuda __", answer: "interagindo com a DOM para colocar componentes React na mesma"},
-        {question: "OUsamos o npm para __", answer: "6. gerenciar os pacotes necessários e suas dependências"},
-        {question: "OUsamos props para __", answer: "passar diferentes informações para componentes"},
-        {question: "Usamos estado (state) para __", answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"}]},
-
-        {deck: "React",
-        flashCards: [
-        {question: "O que é JSX?", answer: "Uma extensão de linguagem do JavaScript"},
-        {question: "O React é __", answer: "uma biblioteca JavaScript para construção de interfaces"},
-        {question: "Componentes devem iniciar com __", answer: "letra maiúscula"},
-        {question: "Podemos colocar __ dentro do JSX", answer: "expressões"},
-        {question: "O ReactDOM nos ajuda __", answer: "interagindo com a DOM para colocar componentes React na mesma"},
-        {question: "OUsamos o npm para __", answer: "6. gerenciar os pacotes necessários e suas dependências"},
-        {question: "OUsamos props para __", answer: "passar diferentes informações para componentes"},
-        {question: "Usamos estado (state) para __", answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"}]}
-    ]
-
     const [validValue, setValidValue] = React.useState(true)
     const [activeBtn, setActiveBtn] = React.useState("btn-unactive")
     const [path, setPath] = React.useState("")

@@ -55,8 +55,13 @@ export default function FlashcardPage ({ goal }) {
 
         if (value === "checkmark-circle") {
             contador++
+            console.log(contador)
+            console.log(goal)
+            console.log(contador < Number(goal))
             if (contador < Number(goal)) {
                 setCongrats(false)
+            } else {
+                setCongrats(true)
             }
         }
 
